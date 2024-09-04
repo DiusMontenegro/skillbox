@@ -18,26 +18,26 @@ function NavContent() {
 
     return (
         <section className="flex h-full flex-col gap-6 pt-10">
-            {sidebarLinks.map((item) => {
+            {sidebarLinks.map(({ route, label, imgURL }) => {
                 const isActive =
-                    (pathname.includes(item.route) && item.route.length > 1) ||
-                    pathname === item.route;
+                    (pathname.includes(route) && route.length > 1) ||
+                    pathname === route;
 
                 return (
-                    <SheetClose asChild key={item.route}>
+                    <SheetClose asChild key={route}>
                         <Link
-                            href={item.route}
+                            href={route}
                             className={`flex items-center gap-2 bg-transparent p-2 ${isActive && "rounded-lg border border-blue-800 text-blue-800"}`}
                         >
                             <Image
-                                src={item.imgURL}
-                                alt={item.label}
+                                src={imgURL}
+                                alt={label}
                                 width={18}
                                 height={18}
                                 className={`${!isActive && "opacity-60"}`}
                             />
                             <p className={`${isActive && "font-extrabold"}`}>
-                                {item.label}
+                                {label}
                             </p>
                         </Link>
                     </SheetClose>
