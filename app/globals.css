@@ -168,6 +168,7 @@ code {
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
 }
+
 @layer base {
     :root {
         --background: 0 0% 100%;
@@ -223,6 +224,7 @@ code {
         --chart-5: 340 75% 55%;
     }
 }
+
 @layer base {
     * {
         @apply border-border;
