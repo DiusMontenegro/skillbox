@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function AskQuestion() {
-    return <div>Ask Question</div>;
+    return <div className="mt-36">Ask Question</div>;
 }
