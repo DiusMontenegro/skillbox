@@ -11,7 +11,7 @@ function capitalize(str: string): string {
 }
 
 // Function to calculate how much time has passed since a given date
-function timeAgo(dateString: Date): string {
+function getTimestamp(dateString: Date): string {
     const now = new Date();
     const past = new Date(dateString);
     const diffInSeconds = Math.floor((now.getTime() - past.getTime()) / 1000);
@@ -35,13 +35,24 @@ function timeAgo(dateString: Date): string {
     }
 
     const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays === 0) {
-        return "Today";
-    } else if (diffInDays === 1) {
-        return "1 day ago";
-    } else {
-        return `${diffInDays} days ago`;
+    if (diffInDays < 7) {
+        return diffInDays === 1 ? "1 day ago" : `${diffInDays} days ago`;
     }
+
+    const diffInWeeks = Math.floor(diffInDays / 7);
+    if (diffInWeeks < 4) {
+        return diffInWeeks === 1 ? "1 week ago" : `${diffInWeeks} weeks ago`;
+    }
+
+    const diffInMonths = Math.floor(diffInDays / 30);
+    if (diffInMonths < 12) {
+        return diffInMonths === 1
+            ? "1 month ago"
+            : `${diffInMonths} months ago`;
+    }
+
+    const diffInYears = Math.floor(diffInMonths / 12);
+    return diffInYears === 1 ? "1 year ago" : `${diffInYears} years ago`;
 }
 
 // Function to format a number into human-readable format (e.g., 1k, 1.2M)
@@ -62,4 +73,4 @@ function formatNumber(value: number): string {
         : formattedValue + suffix;
 }
 
-export { capitalize, timeAgo, formatNumber };
+export { capitalize, getTimestamp, formatNumber };
