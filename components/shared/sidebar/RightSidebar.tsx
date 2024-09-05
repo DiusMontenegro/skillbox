@@ -51,7 +51,7 @@ const RightSidebar = () => {
                             className="flex justify-between gap-2"
                             href="/"
                         >
-                            <div className="inline-flex items-center rounded-md border border-none border-transparent bg-slate-900 px-4 py-2 text-xs font-semibold uppercase text-white shadow hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+                            <div className="inline-flex items-center rounded-md border border-none border-transparent bg-slate-900 px-4 py-2 text-[10px] font-semibold uppercase text-white shadow hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
                                 {tag}
                             </div>
                             <p className="pt-1 text-sm">{count}</p>

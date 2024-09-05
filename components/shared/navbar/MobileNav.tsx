@@ -27,7 +27,7 @@ function NavContent() {
                     <SheetClose asChild key={route}>
                         <Link
                             href={route}
-                            className={`flex items-center gap-2 bg-transparent p-2 ${isActive && "rounded-lg border border-blue-800 text-blue-800"}`}
+                            className={`flex items-center gap-2 bg-transparent p-2 ${isActive && "rounded-lg border border-slate-800 text-slate-800"}`}
                         >
                             <Image
                                 src={imgURL}

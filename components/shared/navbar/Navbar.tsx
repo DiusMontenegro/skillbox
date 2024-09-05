@@ -13,7 +13,7 @@ const Navbar = () => {
 
     return (
         <nav
-            className={`flex-between fixed z-50 w-full gap-5 ${theme === "light" ? "bg-white" : "bg-slate-800 text-white"} p-6 sm:px-12`}
+            className={`flex-between fixed z-50 w-full gap-5 ${theme === "light" ? "bg-white" : "bg-slate-900 text-white"} p-6 sm:px-12`}
         >
             <Link href="/" className="flex items-center gap-1">
                 <Image

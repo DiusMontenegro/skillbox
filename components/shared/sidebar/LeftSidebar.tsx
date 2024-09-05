@@ -18,7 +18,7 @@ const SidebarContent = () => {
                     <Link
                         key={route}
                         href={route}
-                        className={`${isActive && "rounded-lg border border-blue-800 text-blue-800"} flex items-center gap-4 p-4`}
+                        className={`${isActive && "rounded-lg border border-slate-800 text-slate-800"} flex items-center gap-4 p-4`}
                     >
                         <Image
                             src={imgURL}
