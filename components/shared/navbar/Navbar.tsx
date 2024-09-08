@@ -27,7 +27,7 @@ const Navbar = () => {
                     height={25}
                 />
 
-                <p className="max-sm:hidden">
+                <p className="text-lg font-semibold max-sm:hidden">
                     Skill<span>Box</span>.
                 </p>
             </Link>
