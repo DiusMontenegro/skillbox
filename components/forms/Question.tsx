@@ -20,6 +20,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Badge } from "../ui/badge";
+import { createQuestion } from "@/lib/actions/question.action";
 
 const Question = () => {
     const tinyApiKey = process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY;
@@ -77,7 +78,7 @@ const Question = () => {
     });
 
     // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof QuestionsSchema>) {
+    async function onSubmit(values: z.infer<typeof QuestionsSchema>) {
         // Do something with the form values.
         // ✅ This will be type-safe and validated.
         setIsSubmitting(true);
@@ -85,6 +86,8 @@ const Question = () => {
         try {
             // make an async call to API -> create a question
             // contain all form data
+
+            await createQuestion({});
             // navigate to home page
         } catch (error) {
         } finally {
@@ -135,6 +138,10 @@ const Question = () => {
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Editor
+                                    onBlur={field.onBlur} // save the value when exited
+                                    onEditorChange={(content) =>
+                                        field.onChange(content)
+                                    }
                                     apiKey={tinyApiKey}
                                     onInit={(_evt, editor) => {
                                         // @ts-ignore
