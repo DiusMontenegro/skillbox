@@ -6,7 +6,7 @@ export const QuestionsSchema = z.object({
         .min(2, {
             message: "Question Title must contain at least 2 character(s)",
         })
-        .max(30, {
+        .max(50, {
             message: "Question Title must contain at most 30 character(s)",
         }),
     explanation: z.string().min(20, {
