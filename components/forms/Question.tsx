@@ -7,6 +7,7 @@ import { QuestionsSchema } from "@/lib/validations";
 import React, { useRef, useState } from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import Image from "next/image";
+import { useRouter, usePathname } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,10 +23,17 @@ import {
 import { Badge } from "../ui/badge";
 import { createQuestion } from "@/lib/actions/question.action";
 
-const Question = () => {
+interface Props {
+    mongoUserId: string;
+}
+
+const Question = ({ mongoUserId }: Props) => {
     const tinyApiKey = process.env.NEXT_PUBLIC_TINY_EDITOR_API_KEY;
     const editorRef = useRef(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const router = useRouter();
+    const pathname = usePathname();
+
     const formType: any = "create";
 
     function handleInputKeydown(
@@ -87,13 +95,20 @@ const Question = () => {
             // make an async call to API -> create a question
             // contain all form data
 
-            await createQuestion({});
+            await createQuestion({
+                title: values.title,
+                content: values.explanation,
+                tags: values.tags,
+                author: JSON.parse(mongoUserId),
+            });
+
             // navigate to home page
+            router.push("/");
         } catch (error) {
         } finally {
             setIsSubmitting(false);
         }
-        console.log(values);
+        // console.log(values);
     }
 
     return (
