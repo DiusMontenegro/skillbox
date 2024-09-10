@@ -1,54 +1,18 @@
-"use client";
 import Link from "next/link";
 import React from "react";
+import getQuestions from "@/lib/actions/question.action";
+import { HomePageFilters } from "@/constants/filters";
+
 import HomeFilters from "@/components/Home/HomeFilters";
 import Filter from "@/components/shared/search/Filter";
 import LocalSearch from "@/components/shared/search/LocalSearch";
-import { HomePageFilters } from "@/constants/filters";
-import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import QuestionCard from "@/components/cards/QuestionCard";
 import NoResult from "@/components/shared/NoResult";
 
-const questions = [
-    {
-        _id: 1,
-        title: "Best practices for data fetching in a Next.js application with Server-Side Rendering (SSR)?",
-        tags: [
-            { _id: "1", name: "python" },
-            { _id: "2", name: "sql" },
-        ],
-        author: {
-            _id: "123",
-            name: "Dius Montenegro",
-            picture: "/assets/icons/user.svg",
-        },
-        upvotes: 10,
-        views: 100,
-        answers: [{ _id: "1", author: "Zeus" }],
-        createdAt: new Date("2023-09-05T12:00:00Z"),
-    },
-    {
-        _id: 2,
-        title: "Redux Toolkit Not Updating State as Expected",
-        tags: [
-            { _id: "1", name: "react.js" },
-            { _id: "2", name: "redux" },
-        ],
-        author: {
-            _id: "124",
-            name: "Rea Revilleza",
-            picture: "/assets/icons/user.svg",
-        },
-        upvotes: 1582,
-        views: 127,
-        answers: [{ _id: "1", author: "Xyrah" }],
-        createdAt: new Date("2023-06-05T12:00:00Z"),
-    },
-];
-
-export default function Home() {
-    const pathname = usePathname();
+export default async function Home() {
+    const result = await getQuestions({});
+    const { questions } = result;
 
     return (
         <>
@@ -64,7 +28,7 @@ export default function Home() {
             </div>
 
             <div
-                className={`${pathname === "/" && "md:flex-col"} mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center`}
+                className={`mt-11 flex justify-between gap-5 max-sm:flex-col sm:items-center md:flex-col`}
             >
                 <LocalSearch
                     route="/"
