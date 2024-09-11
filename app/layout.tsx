@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import React from "react";
+// eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Provider from "@/components/providers/Provider";
