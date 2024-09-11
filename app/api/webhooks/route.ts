@@ -6,11 +6,7 @@ import { createUser, deleteUser, updateUser } from "@/lib/actions/user.action";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
-    // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
-    // TODO: add your webhook secret to .env.local
     const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
-
-    console.log(WEBHOOK_SECRET);
 
     if (!WEBHOOK_SECRET) {
         throw new Error(
@@ -20,14 +16,16 @@ export async function POST(req: Request) {
 
     // Get the headers
     const headerPayload = headers();
-    console.log("Headers received:", headerPayload);
+    const headersObj = Object.fromEntries(headerPayload); // Convert to a plain object
+    console.log("Headers received:", headersObj); // Safe to log
+
     const svix_id = headerPayload.get("svix-id");
     const svix_timestamp = headerPayload.get("svix-timestamp");
     const svix_signature = headerPayload.get("svix-signature");
 
-    // If there are no headers, error out
+    // If there are no svix headers, return an error response
     if (!svix_id || !svix_timestamp || !svix_signature) {
-        return new Response("Error occured -- no svix headers", {
+        return new Response("Error occurred -- no svix headers", {
             status: 400,
         });
     }
@@ -50,13 +48,12 @@ export async function POST(req: Request) {
         }) as WebhookEvent;
     } catch (err) {
         console.error("Error verifying webhook:", err);
-        return new Response("Error occured", {
+        return new Response("Error occurred during verification", {
             status: 400,
         });
     }
 
-    // Do something with the payload
-    // For this guide, you simply log the payload to the console
+    // Handle different event types
     const eventType = evt.type;
 
     if (eventType === "user.created") {
@@ -71,13 +68,13 @@ export async function POST(req: Request) {
 
         const mongoUser = await createUser({
             clerkId: id,
-            name: `${first_name} ${last_name && last_name}`,
+            name: `${first_name} ${last_name || ""}`,
             username: username!,
             email: email_addresses[0].email_address,
             picture: image_url,
         });
 
-        return NextResponse.json({ message: "Ok", user: mongoUser });
+        return NextResponse.json({ message: "User created", user: mongoUser });
     } else if (eventType === "user.updated") {
         const {
             id,
@@ -91,7 +88,7 @@ export async function POST(req: Request) {
         const mongoUser = await updateUser({
             clerkId: id,
             updateData: {
-                name: `${first_name} ${last_name && last_name}`,
+                name: `${first_name} ${last_name || ""}`,
                 username: username!,
                 email: email_addresses[0].email_address,
                 picture: image_url,
@@ -99,7 +96,7 @@ export async function POST(req: Request) {
             path: `/profile/${id}`,
         });
 
-        return NextResponse.json({ message: "Ok", user: mongoUser });
+        return NextResponse.json({ message: "User updated", user: mongoUser });
     }
 
     if (eventType === "user.deleted") {
@@ -107,7 +104,11 @@ export async function POST(req: Request) {
 
         const deletedUser = await deleteUser({ clerkId: id! });
 
-        return NextResponse.json({ message: "Ok", user: deletedUser });
+        return NextResponse.json({
+            message: "User deleted",
+            user: deletedUser,
+        });
     }
+
     return new Response("", { status: 200 });
 }
