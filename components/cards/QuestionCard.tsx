@@ -67,8 +67,8 @@ const QuestionCard = ({
                     <Image
                         src={author.picture}
                         alt="User-Avatar"
-                        width={12}
-                        height={12}
+                        width={16}
+                        height={16}
                         className="rounded-full object-contain"
                     />
 
