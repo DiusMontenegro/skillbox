@@ -8,7 +8,9 @@ import { NextResponse } from "next/server";
 export async function POST(req: Request) {
     // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
     // TODO: add your webhook secret to .env.local
-    const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
+    const WEBHOOK_SECRET = process.env.NEXT_CLERK_WEBHOOK_SECRET;
+
+    console.log(WEBHOOK_SECRET);
 
     if (!WEBHOOK_SECRET) {
         throw new Error(
@@ -18,6 +20,7 @@ export async function POST(req: Request) {
 
     // Get the headers
     const headerPayload = headers();
+    console.log("Headers received:", headerPayload);
     const svix_id = headerPayload.get("svix-id");
     const svix_timestamp = headerPayload.get("svix-timestamp");
     const svix_signature = headerPayload.get("svix-signature");
