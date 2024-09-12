@@ -8,8 +8,8 @@ interface Props {
 
 const Tag = ({ children, _id }: Props) => {
     return (
-        <Link href={``}>
-            <div className="inline-flex items-center rounded-md border border-none border-transparent bg-slate-900 px-4 py-2 text-[10px] font-semibold uppercase text-white shadow hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
+        <Link href={`/tags/${_id}`}>
+            <div className="inline-flex items-center rounded-md border border-none border-transparent bg-slate-900 px-2 py-1 text-[10px] font-semibold uppercase text-white shadow hover:bg-slate-900/80 focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2">
                 {children}
             </div>
         </Link>
