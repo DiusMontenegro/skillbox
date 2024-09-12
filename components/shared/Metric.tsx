@@ -26,7 +26,9 @@ const Metric = ({
 
             <p className="small-medium flex items-center gap-1">
                 <span className={`${textStyles} small-regular line-clamp-1`}>
-                    {typeof value === "number" ? formatNumber(value) : value}
+                    {typeof value === "number"
+                        ? formatNumber(value)
+                        : formatNumber(value.length)}
                 </span>
                 {title}
             </p>
