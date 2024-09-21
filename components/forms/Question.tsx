@@ -36,10 +36,7 @@ const Question = ({ mongoUserId }: Props) => {
 
     const formType: any = "create";
 
-    function handleInputKeydown(
-        e: React.KeyboardEvent<HTMLInputElement>,
-        field: any
-    ) {
+    function handleInputKeydown(e: React.KeyboardEvent<HTMLInputElement>, field: any) {
         if (e.key === "Enter" && field.name === "tags") {
             e.preventDefault();
 
@@ -113,18 +110,14 @@ const Question = ({ mongoUserId }: Props) => {
 
     return (
         <Form {...form}>
-            <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="flex w-full flex-col gap-10"
-            >
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex w-full flex-col gap-10">
                 <FormField
                     control={form.control}
                     name="title"
                     render={({ field }) => (
                         <FormItem className="flex w-full flex-col">
                             <FormLabel className="text-base font-semibold">
-                                Question Title{" "}
-                                <span className="text-xs text-red-600">*</span>
+                                Question Title <span className="text-xs text-red-600">*</span>
                             </FormLabel>
                             <FormControl className="mt-3.5">
                                 <Input
@@ -134,8 +127,7 @@ const Question = ({ mongoUserId }: Props) => {
                                 />
                             </FormControl>
                             <FormDescription className="mt-2.5 text-sm text-gray-500">
-                                Be specific for your question, make it
-                                informative.
+                                Be specific for your question, make it informative.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -154,9 +146,7 @@ const Question = ({ mongoUserId }: Props) => {
                             <FormControl className="mt-3.5">
                                 <Editor
                                     onBlur={field.onBlur} // save the value when exited
-                                    onEditorChange={(content) =>
-                                        field.onChange(content)
-                                    }
+                                    onEditorChange={(content) => field.onChange(content)}
                                     apiKey={tinyApiKey}
                                     onInit={(_evt, editor) => {
                                         // @ts-ignore
@@ -188,14 +178,13 @@ const Question = ({ mongoUserId }: Props) => {
                                             "codesample | bold italic forecolor | alignleft aligncenter " +
                                             "alignright alignjustify | bullist numlist | " +
                                             "removeformat | help",
-                                        content_style:
-                                            "body { font-family:Inter; font-size:16px }",
+                                        content_style: "body { font-family:Inter; font-size:16px }",
                                     }}
                                 />
                             </FormControl>
                             <FormDescription className="mt-2.5 text-sm text-gray-500">
-                                Introduce the problem and waht did you do so
-                                far. Minimum of 20 characters.
+                                Introduce the problem and waht did you do so far. Minimum of 20
+                                characters.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
@@ -217,9 +206,7 @@ const Question = ({ mongoUserId }: Props) => {
                                     <Input
                                         className="no-focus min-h-[56px] border-2 border-gray-400"
                                         placeholder="Add tags..."
-                                        onKeyDown={(e) =>
-                                            handleInputKeydown(e, field)
-                                        }
+                                        onKeyDown={(e) => handleInputKeydown(e, field)}
                                     />
                                     {field.value.length > 0 && (
                                         <div className="mt-2.5 flex gap-2.5">
@@ -227,13 +214,7 @@ const Question = ({ mongoUserId }: Props) => {
                                                 <Badge
                                                     className="flex items-center gap-1 font-light"
                                                     key={tag}
-                                                    onClick={() =>
-                                                        handleTagRemove(
-                                                            tag,
-                                                            field
-                                                        )
-                                                    }
-                                                >
+                                                    onClick={() => handleTagRemove(tag, field)}>
                                                     {tag.toUpperCase()}
                                                     <Image
                                                         src="/assets/icons/delete-tag.svg"
@@ -249,27 +230,18 @@ const Question = ({ mongoUserId }: Props) => {
                                 </>
                             </FormControl>
                             <FormDescription className="mt-2.5 text-sm text-gray-500">
-                                Add up to 3 tags to describe what topic is your
-                                question all about. You can also press
-                                &quot;Enter&quot; to add tag.
+                                Add up to 3 tags to describe what topic is your question all about.
+                                You can also press &quot;Enter&quot; to add tag.
                             </FormDescription>
                             <FormMessage />
                         </FormItem>
                     )}
                 />
-                <Button
-                    className="w-fit font-semibold"
-                    disabled={isSubmitting}
-                    type="submit"
-                >
+                <Button className="w-fit font-semibold" disabled={isSubmitting} type="submit">
                     {isSubmitting ? (
                         <>{formType === "edit" ? "Editing..." : "Posting"}</>
                     ) : (
-                        <>
-                            {formType === "edit"
-                                ? "Edit Question"
-                                : "Ask a Question"}
-                        </>
+                        <>{formType === "edit" ? "Edit Question" : "Ask a Question"}</>
                     )}
                 </Button>
             </form>

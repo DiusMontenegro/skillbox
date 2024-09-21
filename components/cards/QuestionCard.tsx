@@ -45,9 +45,7 @@ const QuestionCard = ({
                         {getTimestamp(createdAt)}
                     </span>
                     <Link href={`/question/${_id}`}>
-                        <h3 className="line-clamp-1 flex-1 text-xl font-semibold">
-                            {title}
-                        </h3>
+                        <h3 className="line-clamp-1 flex-1 text-xl font-semibold">{title}</h3>
                     </Link>
                 </div>
                 {/* Add Edit / Delete Actions */}
@@ -62,8 +60,7 @@ const QuestionCard = ({
             <div className="flex-between mt-6 w-full flex-wrap gap-3">
                 <Link
                     href={`/profile/${author._id}`}
-                    className="flex items-center justify-center gap-1"
-                >
+                    className="flex items-center justify-center gap-1">
                     <Image
                         src={author.picture}
                         alt="User-Avatar"
@@ -74,9 +71,7 @@ const QuestionCard = ({
 
                     <p className="flex items-center gap-1">
                         {author.name}
-                        <span
-                            className={`line-clamp-1 text-xs ${isAuthor && "max-sm:hidden"}`}
-                        >
+                        <span className={`line-clamp-1 text-xs ${isAuthor && "max-sm:hidden"}`}>
                             • asked {getTimestamp(createdAt)}
                         </span>
                     </p>

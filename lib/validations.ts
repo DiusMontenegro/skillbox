@@ -26,3 +26,7 @@ export const QuestionsSchema = z.object({
         .min(1)
         .max(3, { message: "Tag must contain at most 3 elements(s)" }),
 });
+
+export const AnswerSchema = z.object({
+    answer: z.string().min(100),
+});
