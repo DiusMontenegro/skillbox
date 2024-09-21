@@ -4,8 +4,34 @@ import Question from "@/database/question.model";
 import { connectToDatabase } from "../mongoose";
 import Tag from "@/database/tag.model";
 import { revalidatePath } from "next/cache";
-import { CreateQuestionParams, GetQuestionParams } from "../../types/shared.types";
+import {
+    CreateQuestionParams,
+    GetQuestionByIdParams,
+    GetQuestionParams,
+} from "../../types/shared.types";
 import User from "@/database/user.model";
+
+// Get question by id
+export async function getQuestionById(params: GetQuestionByIdParams) {
+    try {
+        connectToDatabase();
+
+        const { questionId } = params;
+
+        const question = await Question.findById(questionId)
+            .populate({
+                path: "tags",
+                model: Tag,
+                select: "_id name",
+            })
+            .populate({ path: "author", model: User, select: "_id clerkId name picture" });
+
+        return question;
+    } catch (error) {
+        console.log("Error fetching the question: ", error);
+        throw error;
+    }
+}
 
 // Get all questions
 export default async function getQuestions(params: GetQuestionParams) {

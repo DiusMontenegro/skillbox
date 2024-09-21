@@ -9,26 +9,19 @@ interface MetricProp {
     href?: string;
     isAuthor?: boolean;
     textStyles?: string;
-    value: number | string;
+    value: number | string | any[];
 }
 
-const Metric = ({
-    imgUrl,
-    value,
-    title,
-    alt,
-    href,
-    textStyles,
-}: MetricProp) => {
+const Metric = ({ imgUrl, value, title, alt, href, textStyles }: MetricProp) => {
     return (
         <div className="flex-center flex-wrap gap-1">
             <Image src={imgUrl} alt={alt} width={16} height={16} />
 
             <p className="small-medium flex items-center gap-1">
                 <span className={`${textStyles} small-regular line-clamp-1`}>
-                    {typeof value === "number"
-                        ? formatNumber(value)
-                        : formatNumber(value.length)}
+                    {typeof value === "number" && formatNumber(value)}
+                    {typeof value === "object" && formatNumber(value.length)}
+                    {typeof value === "string" && value}
                 </span>
                 {title}
             </p>
