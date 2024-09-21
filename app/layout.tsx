@@ -3,6 +3,7 @@ import React from "react";
 // eslint-disable-next-line camelcase
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
+import "../styles/prism.css";
 import Provider from "@/components/providers/Provider";
 
 const inter = Inter({
